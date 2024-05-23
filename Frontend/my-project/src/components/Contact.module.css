@@ -1,0 +1,81 @@
+.contactUs {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .imageSection {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .imageSection img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .formSection {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .formGroup input,
+  .formGroup textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .formGroup input.error,
+  .formGroup textarea.error {
+    border-color: #e74c3c;
+  }
+  
+  .errorMessage {
+    color: #e74c3c;
+    font-size: 12px;
+  }
+  
+  .submitButton {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submitButton:hover {
+    background-color: #2980b9;
+  }
+  
+  .successMessage {
+    color: #2ecc71;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  

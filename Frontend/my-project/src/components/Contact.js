@@ -1,108 +1,103 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import styles from './Contact.module.css';
+import Footer from './Footer';
 
 function Contact() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.email) newErrors.email = 'Email is required';
+    if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email address is invalid';
+    if (!formData.message) newErrors.message = 'Message is required';
+    return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can add your submission logic here
-    console.log('Form submitted:', formData);
-    // Clear the form after submission
-    setFormData({ name: '', email: '', message: '' });
-  };
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-  const buttonClick = () => {
-    navigate('/');
+    setErrors({});
+    setSuccessMessage('Thank you for contacting us! We will get back to you soon.');
+
+    // Reset form fields
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+    });
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.formContainer}>
-        <h1>Contact Us</h1>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your Name"
-            style={styles.input}
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Your Email"
-            style={styles.input}
-          />
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Your Message"
-            style={styles.textarea}
-          />
-          <button type="submit" style={styles.button}>Submit</button>
+    <div className={styles.contactUs}>
+      <div className={styles.imageSection}>
+        <img src="/Images/Contact.jpg" alt="Contact Us" />
+      </div>
+      <div className={styles.formSection}>
+        <h2>Contact Us</h2>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formGroup}>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={errors.name ? styles.error : ''}
+            />
+            {errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={errors.email ? styles.error : ''}
+            />
+            {errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="message">Message:</label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className={errors.message ? styles.error : ''}
+            />
+            {errors.message && <span className={styles.errorMessage}>{errors.message}</span>}
+          </div>
+          <button type="submit" className={styles.submitButton}>Send Message</button>
+          {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
         </form>
       </div>
-      <button onClick={buttonClick} style={styles.button}>Go to Home</button>
+      <Footer/>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    backgroundColor: '#f0f0f0',
-    padding: '20px',
-    borderRadius: '10px',
-    margin: '20px auto',
-    maxWidth: '800px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundImage: `url('/Images/Banner.jpg')`, // Add your background image path here
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    
-  },
-  formContainer: {
-    width: '100%',
-    marginBottom: '20px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  input: {
-    padding: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    width: '100%',
-  },
-  textarea: {
-    padding: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    width: '100%',
-    height: '150px',
-  },
-  button: {
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-};
 
 export default Contact;

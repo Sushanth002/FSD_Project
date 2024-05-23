@@ -1,9 +1,16 @@
-import React from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import styles from './UserDashboard.module.css';
 
 function UserDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/user-dashboard') {
+      navigate('user-profile');
+    }
+  }, [location, navigate]);
 
   const handleLogout = () => {
     sessionStorage.removeItem('user_id');

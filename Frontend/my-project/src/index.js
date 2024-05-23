@@ -40,6 +40,8 @@ import SearchHotels from './components/common/SearchHotels';
 import SearchRooms from './components/common/SearchRooms';
 import BookRoom from './components/user/BookRoom';
 import HotelReviews from './components/common/HotelReviews';
+import OwnerProfile from './components/hotelOwner/OwnerProfile';
+import UserProfile from './components/user/UserProfile';
 
 
 
@@ -87,6 +89,7 @@ const routing = (
         </UserProtectedRoute>
       }>
         {/* Nested routes */}
+        <Route path="user-profile" element={<UserProfile />} />
         <Route path="update-info" element={<UpdateInfo />} />
         <Route path="past-bookings" element={<PastBookings />} />
         <Route path="current-bookings" element={<CurrentBookings />} />
@@ -102,6 +105,7 @@ const routing = (
         </OwnerProtectedRoute>
       }>
         {/* Nested routes */}
+        <Route path="owner-profile" element={<OwnerProfile />} />
         <Route path="update-owner-info" element={<UpdateOwnerInfo />} />
         <Route path="add-hotels" element={<AddHotels />} />
         <Route path="owner-hotels" element={<OwnerHotels />} />

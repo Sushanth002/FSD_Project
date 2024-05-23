@@ -1,35 +1,38 @@
 import React from 'react';
+import styles from './About.module.css';
+import Footer from './Footer';
 
 function About() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>About Us</h1>
-      <div style={styles.content}>
-        <p>Welcome to our website! We are dedicated to providing you with the best experience for finding hotels and booking your stay.</p>
-        <p>Our mission is to make your travel planning process as smooth as possible. Whether you're looking for a cozy boutique hotel or a luxurious resort, we've got you covered.</p>
-        <p>With our user-friendly interface and extensive database of hotels, you can easily search, compare, and book your ideal accommodation.</p>
-        <p>Thank you for choosing us for your travel needs. We look forward to serving you!</p>
+    <div className={styles.aboutUsContainer}>
+      <h1>About Us</h1>
+      <div className={styles.infoSection}>
+        <p>Welcome to our Hotel Booking Website! We are dedicated to providing you with the best hotel booking experience. Whether you're traveling for business or leisure, we have a wide range of hotels to suit your needs.</p>
+        <p>Last month, we had over 10,000 views and helped thousands of travelers find the perfect accommodations. Our user-friendly interface, competitive prices, and excellent customer service make us the top choice for hotel bookings.</p>
       </div>
+      <div className={styles.imagesSection}>
+        <div className={styles.imageContainer}>
+          <img src="/Images/AboutImage1.jpg" alt="Hotel 1" className={styles.hotelImage} />
+          <p>Hotels in India</p>
+        </div>
+        <div className={styles.imageContainer}>
+          <img src="/Images/AboutImage2.jpg" alt="Hotel 2" className={styles.hotelImage} />
+          <p>Hotel in Paris</p>
+        </div>
+        <div className={styles.imageContainer}>
+          <img src="/Images/AboutImage3.jpg" alt="Hotel 3" className={styles.hotelImage} />
+          <p>Hotel in Tokyo</p>
+        </div>
+      </div>
+      <div className={styles.statsSection}>
+        <h2>Our Achievements</h2>
+        <p>10,000+ Views Last Month</p>
+        <p>5,000+ Hotels Listed</p>
+        <p>Excellent Customer Reviews</p>
+      </div>
+      <Footer/>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    backgroundColor: 'LightPink',
-    padding: '20px',
-    borderRadius: '10px',
-    margin: '20px auto',
-    maxWidth: '800px',
-    textAlign: 'center',
-  },
-  heading: {
-    fontSize: '2rem',
-    marginBottom: '20px',
-  },
-  content: {
-    lineHeight: '1.6',
-  },
-};
 
 export default About;

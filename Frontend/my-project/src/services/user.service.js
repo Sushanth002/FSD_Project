@@ -91,7 +91,18 @@ const userService = {
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Failed to cancel booking');
     }
-  }
+  },
+
+  getUserDetails: async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/dashboard/${userId}`, {
+        withCredentials: true
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to fetch user details');
+    }
+  },
   // Add other user-related service functions here if needed
 };
 

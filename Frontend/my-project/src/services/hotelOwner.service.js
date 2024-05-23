@@ -231,6 +231,17 @@ const hotelOwnerService = {
       throw new Error(error.response?.data?.message || 'An error occurred. Please try again.');
     }
   },
+
+  getOwnerDetails: async (ownerId) => {
+    try {
+      const response = await axios.get(`${API_URL}/dashboard/${ownerId}`, {
+        withCredentials: true
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to fetch owner details');
+    }
+  },
   
 };
 

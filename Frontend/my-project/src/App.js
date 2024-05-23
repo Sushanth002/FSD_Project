@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './App.css';
+import Footer from './components/Footer';
 
 function App() {
   const navigate = useNavigate();
@@ -103,6 +104,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
