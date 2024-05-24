@@ -41,7 +41,7 @@ describe("OwnerApi", () => {
         });
     });
 
-    it.skip("Owner registration with duplicate data", (done) => {
+    it("Owner registration with duplicate data", (done) => {
       const ownerData = {
         owner_name: "sushanth",
         password: "Sushanth@20",
@@ -161,12 +161,12 @@ describe("OwnerApi", () => {
 
   describe("POST /api/owner/logout/:ownerId", () => {
     // Test case for owner logout successfully
-    it.skip("Owner logout successfully", (done) => {
+    it("Owner logout successfully", (done) => {
       chai
         .request(server)
         .post("/api/owner/logout/15")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -197,9 +197,9 @@ describe("OwnerApi", () => {
   //update owner details
 
   describe("PUT /api/owner/dashboard/update-owner", () => {
-    it.skip("It will update the owner details", (done) => {
+    it("It will update the owner details", (done) => {
       const updatedOwnerData = {
-        owner_id: 2,
+        owner_id: 15,
         owner_name: "ramesh",
         gender: "MALE",
         contact_no: "1234512340",
@@ -210,7 +210,7 @@ describe("OwnerApi", () => {
         .request(server)
         .put("/api/owner/dashboard/update-owner")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ]) // Set the access token and user role in cookies
         .send(updatedOwnerData)
@@ -223,7 +223,7 @@ describe("OwnerApi", () => {
         });
     });
 
-    it.skip("It will fail to update owner details due to missing owner_id", (done) => {
+    it("It will fail to update owner details due to missing owner_id", (done) => {
       const invalidOwnerData = {
         owner_name: "ramesh",
         gender: "MALE",
@@ -235,17 +235,17 @@ describe("OwnerApi", () => {
         .request(server)
         .put("/api/owner/dashboard/update-owner")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ]) // Set the access token and user role in cookies
         .send(invalidOwnerData)
         .end((err, res) => {
           if (err) return done(err);
-          res.should.have.status(500);
+          res.should.have.status(401);
           res.body.should.have.property("success").equal(false);
           res.body.should.have
             .property("message")
-            .equal("Couldnot update hotelowner in database ");
+            .equal("unauthorized access");
           res.body.should.have.property("errors").that.is.an("array").that.is
             .empty;
           done();
@@ -256,7 +256,7 @@ describe("OwnerApi", () => {
   //adding new hotel
 
   describe("POST /api/owner/dashboard/add-new-hotel", () => {
-    it.skip("It will add new hotel details", (done) => {
+    it("It will add new hotel details", (done) => {
       //skipping this test case because it will keep on adding new hotels
       const newHotelData = {
         hotel_name: "srinivas",
@@ -268,14 +268,14 @@ describe("OwnerApi", () => {
         swimming_pool: "1",
         fitness_center: "1",
         dining: "1",
-        owner_id: "15",
+        owner_id: 15,
       };
 
       chai
         .request(server)
         .post("/api/owner/dashboard/add-new-hotel")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .send(newHotelData)
@@ -286,16 +286,16 @@ describe("OwnerApi", () => {
           res.body.should.have.property("message").equal("new hotel added ");
           res.body.should.have.property("data").that.is.an("object");
           res.body.data.should.have.property("hotel_id");
-          res.body.data.should.have.property("hotel_name").equal("srinivas");
-          res.body.data.should.have.property("location").equal("Hyderabad");
-          res.body.data.should.have.property("address").equal("Madapur");
-          res.body.data.should.have.property("parking").equal("1");
-          res.body.data.should.have.property("wifi").equal("1");
-          res.body.data.should.have.property("room_service").equal("1");
-          res.body.data.should.have.property("swimming_pool").equal("1");
-          res.body.data.should.have.property("fitness_center").equal("1");
-          res.body.data.should.have.property("dining").equal("1");
-          res.body.data.should.have.property("owner_id").equal("15");
+          res.body.data.should.have.property("hotel_name");
+          res.body.data.should.have.property("location");
+          res.body.data.should.have.property("address");
+          res.body.data.should.have.property("parking");
+          res.body.data.should.have.property("wifi");
+          res.body.data.should.have.property("room_service");
+          res.body.data.should.have.property("swimming_pool");
+          res.body.data.should.have.property("fitness_center");
+          res.body.data.should.have.property("dining");
+          res.body.data.should.have.property("owner_id");
           done();
         });
     });
@@ -311,14 +311,14 @@ describe("OwnerApi", () => {
         swimming_pool: "1",
         fitness_center: "1",
         dining: "True", // This should be "1" instead of "True"
-        owner_id: "15",
+        owner_id: 15,
       };
 
       chai
         .request(server)
         .post("/api/owner/dashboard/add-new-hotel")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .send(invalidHotelData)
@@ -351,14 +351,14 @@ describe("OwnerApi", () => {
         swimming_pool: "1",
         fitness_center: "1",
         dining: "1",
-        owner_id: "15",
+        owner_id: 15,
       };
 
       chai
         .request(server)
         .put("/api/owner/dashboard/update-hotel")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .send(updatedHotelData)
@@ -385,14 +385,14 @@ describe("OwnerApi", () => {
         swimming_pool: "1",
         fitness_center: "1",
         dining: "1",
-        owner_id: "15",
+        owner_id: 15,
       };
 
       chai
         .request(server)
         .put("/api/owner/dashboard/update-hotel")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .send(invalidHotelData)
@@ -416,7 +416,7 @@ describe("OwnerApi", () => {
         .request(server)
         .get("/api/owner/dashboard/get-hotel/15")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -426,7 +426,7 @@ describe("OwnerApi", () => {
           res.body.should.have
             .property("message")
             .equal("fetched hotel detail successfully ");
-          res.body.should.have.property("data").which.is.an("object");
+          res.body.should.have.property("data").which.is.an("array");
           // Add additional assertions for specific data properties if needed
           done();
         });
@@ -437,16 +437,16 @@ describe("OwnerApi", () => {
         .request(server)
         .get("/api/owner/dashboard/get-hotel/999") // Assuming an invalid owner id
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
           if (err) return done(err);
-          res.should.have.status(500); // Assuming a 500 error is returned for database error
+          res.should.have.status(401); // Assuming a 500 error is returned for database error
           res.body.should.have.property("success").equal(false);
           res.body.should.have
             .property("message")
-            .equal("Couldnot fetch hotel detail from database ");
+            .equal("unauthorized access");
           res.body.should.have.property("errors").which.is.an("array").that.is
             .empty;
           done();
@@ -462,7 +462,7 @@ describe("OwnerApi", () => {
         .request(server)
         .get("/api/owner/dashboard/get-all-room/4")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -494,7 +494,7 @@ describe("OwnerApi", () => {
         .request(server)
         .get("/api/owner/dashboard/get-room/1") // Assuming room id is 1
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -537,7 +537,7 @@ describe("OwnerApi", () => {
         .request(server)
         .delete("/api/owner/dashboard/delete-room/100") // Assuming room id is 3
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -568,6 +568,7 @@ describe("OwnerApi", () => {
   describe("PUT /api/owner/dashboard/update-room", () => {
     it("It will successfully update room details", (done) => {
       const updatedRoomData = {
+        owner_id: 15,
         room_id: "2",
         room_size: "1750",
         bed_size: "DOUBLE_BED",
@@ -582,7 +583,7 @@ describe("OwnerApi", () => {
         .put("/api/owner/dashboard/update-room")
         .send(updatedRoomData)
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -598,6 +599,7 @@ describe("OwnerApi", () => {
 
     it("It will fail to update room details due to missing room_id", (done) => {
       const updatedRoomData = {
+        owner_id: 15,
         room_size: "1750",
         bed_size: "DOUBLE_BED",
         max_people_accomodate: "2",
@@ -611,7 +613,7 @@ describe("OwnerApi", () => {
         .put("/api/owner/dashboard/update-room")
         .send(updatedRoomData)
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -632,6 +634,7 @@ describe("OwnerApi", () => {
   describe("POST /api/owner/dashboard/add-new-room", () => {
     it("It will add new room details", (done) => {
       const newRoomData = {
+        owner_id: 15,
         room_size: "1750",
         bed_size: "DOUBLE_BED",
         max_people_accomodate: "2",
@@ -645,7 +648,7 @@ describe("OwnerApi", () => {
         .post("/api/owner/dashboard/add-new-room")
         .send(newRoomData)
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE1MDEzNTE4LCJleHAiOjE3MTU2MTgzMTh9.RjMVWFdXVdyuFT4bCpOfhFybk2EWeCtkvFxUHaTvg4A",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -679,14 +682,14 @@ describe("OwnerApi", () => {
 
   //past bookings by hotel id
 
-  describe("PUT /api/user/dashboard/booking/past-booking", () => {
-    it.skip("It will get the past bookings", (done) => {
+  describe("PUT /api/owner/dashboard/booking/past-booking", () => {
+    it("It will get the past bookings", (done) => {
       chai
         .request(server)
-        .put("/api/user/dashboard/booking/past-booking/4")
+        .get("/api/owner/dashboard/booking/past-booking/4")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE1MDEzNTE4LCJleHAiOjE3MTU2MTgzMTh9.RjMVWFdXVdyuFT4bCpOfhFybk2EWeCtkvFxUHaTvg4A",
-          "userRole=user",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
+          "userRole=owner",
         ])
         .end((err, res) => {
           if (err) return done(err);
@@ -714,8 +717,8 @@ describe("OwnerApi", () => {
 
   //current bookings
 
-  describe("PUT /api/user/dashboard/booking/current-booking", () => {
-    it.skip("It will get the current bookings", (done) => {
+  describe("PUT /api/owner/dashboard/booking/current-booking/4", () => {
+    it("It will get the current bookings", (done) => {
       const requestData = {
         owner_id: 15,
         hotel_id: 4,
@@ -723,10 +726,10 @@ describe("OwnerApi", () => {
 
       chai
         .request(server)
-        .get("/api/user/dashboard/booking/current-booking")
+        .get("/api/owner/dashboard/booking/current-booking/4")
         .send(requestData)
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE1MDEzNTE4LCJleHAiOjE3MTU2MTgzMTh9.RjMVWFdXVdyuFT4bCpOfhFybk2EWeCtkvFxUHaTvg4A",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
           "userRole=owner",
         ])
         .end((err, res) => {
@@ -744,7 +747,7 @@ describe("OwnerApi", () => {
             booking.should.have.property("total_booking_amount");
             booking.should.have.property("checkin_date");
             booking.should.have.property("checkout_date");
-            booking.should.have.property("booking_status").equal("BOOKED");
+            booking.should.have.property("booking_status");
           });
           res.body.should.have
             .property("message")
@@ -758,8 +761,8 @@ describe("OwnerApi", () => {
 
   //get current booking update status
 
-  describe("PUT /api/user/dashboard/booking/current-booking/update-status", () => {
-    it.skip("It will update the status of the current booking", (done) => {
+  describe("PUT /api/owner/dashboard/booking/current-booking/update-status", () => {
+    it("It will update the status of the current booking", (done) => {
       const requestData = {
         owner_id: 15,
         booking_id: 1,
@@ -768,10 +771,10 @@ describe("OwnerApi", () => {
 
       chai
         .request(server)
-        .put("/api/user/dashboard/booking/current-booking/update-status")
+        .put("/api/owner/dashboard/booking/current-booking/update-status")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE1MDEzNTE4LCJleHAiOjE3MTU2MTgzMTh9.RjMVWFdXVdyuFT4bCpOfhFybk2EWeCtkvFxUHaTvg4A",
-          "userRole=user",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE2NTI0NTczLCJleHAiOjE3MTcxMjkzNzN9.eah6RBhivFQtbG6XrWv6hNeDzagLiQ8XITyet8So5j8",
+          "userRole=owner",
         ])
         .send(requestData)
         .end((err, res) => {

@@ -86,7 +86,7 @@ describe("UserApi", () => {
     it("It will fail to login with incorrect password", (done) => {
       const loginData = {
         email: "sushanth123@gmail.com",
-        password: "incorrectPassword",
+        password: "Password@123",
       };
 
       chai
@@ -108,14 +108,14 @@ describe("UserApi", () => {
 
   //user logout
 
-  describe("POST /api/user/logout", () => {
+  describe("POST /api/user/logout/", () => {
     // Test case for user logout successfully
     it("It will logout user successfully", (done) => {
       chai
         .request(server)
-        .post("/api/user/logout")
+        .post("/api/user/logout/2")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoic3Jpbml2YXNAZ21haWwuY29tIiwibmFtZSI6InNyaW5pdmFzIiwiaWF0IjoxNzE0OTYxNTU3LCJleHAiOjE3MTU1NjYzNTd9.Lah3y3kM3c_tBrXnyCijtCyUmB4tqqO9pQt82as6G-Y",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .end((err, res) => {
@@ -133,7 +133,7 @@ describe("UserApi", () => {
     it("It will fail to logout without JWT token", (done) => {
       chai
         .request(server)
-        .post("/api/user/logout")
+        .post("/api/user/logout/2")
         .end((err, res) => {
           if (err) return done(err);
           res.should.have.status(500);
@@ -154,11 +154,11 @@ describe("UserApi", () => {
         .request(server)
         .post("/api/user/dashboard/update-user")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .send({
-          user_id: "1",
+          user_id: 2,
           user_name: "ramesh",
           gender: "MALE",
           contact_no: "9999999999",
@@ -181,7 +181,7 @@ describe("UserApi", () => {
         .request(server)
         .post("/api/user/dashboard/update-user")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .send({
@@ -192,11 +192,11 @@ describe("UserApi", () => {
         })
         .end((err, res) => {
           if (err) return done(err);
-          res.should.have.status(500);
+          res.should.have.status(401);
           res.body.should.have.property("success").which.is.false;
           res.body.should.have
             .property("message")
-            .which.is.equal("Couldnot update user in database ");
+            .which.is.equal("unauthorized access");
           done();
         });
     });
@@ -211,7 +211,7 @@ describe("UserApi", () => {
         .request(server)
         .get("/api/user/dashboard/booking/past-bookings/get-by-user/1")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .end((err, res) => {
@@ -246,11 +246,12 @@ describe("UserApi", () => {
         .request(server)
         .post("/api/user/dashboard/booking/past-bookings/add-review")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .send({
-          booking_id: "100",
+          userid: 2,
+          booking_id: "2",
           review: "good hotel",
           rating: "4",
         })
@@ -279,13 +280,13 @@ describe("UserApi", () => {
 
   //to get future or current bookings by user id
 
-  describe("GET /api/user/dashboard/booking/current-booking/1", () => {
+  describe("GET /api/user/dashboard/booking/current-booking/2", () => {
     it("It will get the future bookings", (done) => {
       chai
         .request(server)
-        .get("/api/user/dashboard/booking/current-booking/1")
+        .get("/api/user/dashboard/booking/current-booking/2")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .end((err, res) => {
@@ -317,13 +318,14 @@ describe("UserApi", () => {
   describe("PUT /api/user/dashboard/booking/current-booking/cancel-booking", () => {
     it("It will cancel the bookings", (done) => {
       const data = {
+        user_id: 2,
         booking_id: "1",
       };
       chai
         .request(server)
         .put("/api/user/dashboard/booking/current-booking/cancel-booking")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .send(data)
@@ -339,12 +341,14 @@ describe("UserApi", () => {
     });
 
     it("It will fail to cancel the booking if no booking_id provided", (done) => {
-      const data = {}; // No booking_id provided
+      const data = {
+        user_id: 2,
+      }; // No booking_id provided
       chai
         .request(server)
         .put("/api/user/dashboard/booking/current-booking/cancel-booking")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgxMjMiLCJpYXQiOjE3MTQ5OTYxMjIsImV4cCI6MTcxNTYwMDkyMn0.739j43apt06_3HJIGkKZbOeJBsLYKXgTY0lFRv24rtY",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdXNoYW50aDEyM0BnbWFpbC5jb20iLCJuYW1lIjoic3VzaGFudGgwMDIiLCJpYXQiOjE3MTY1NDY0NDgsImV4cCI6MTcxNzE1MTI0OH0.43xy2DVPlp0emQc3zbuN1sHjHLWc1cB9UTu73GSZmIw",
           "userRole=user",
         ])
         .send(data)

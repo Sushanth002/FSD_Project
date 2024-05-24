@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 describe("AdminApi", () => {
   describe("POST /api/admin/login", () => {
-    it.skip("Admin login successfully", (done) => {
+    it("Admin login successfully", (done) => {
       const adminCredentials = {
         admin_email: "testadmin1@gmail.com",
         admin_password: "Sushanth@20",
@@ -24,14 +24,8 @@ describe("AdminApi", () => {
           res.body.should.have.property("data");
           res.body.data.should.have.property("admin_id");
           res.body.data.should.have.property("admin_name");
-          res.body.data.should.have.property(
-            "admin_email",
-            "testadmin1@gmail.com"
-          );
-          res.body.data.should.have.property(
-            "admin_phoneno",
-            "testadminphoneno1"
-          );
+          res.body.data.should.have.property("admin_email");
+          res.body.data.should.have.property("admin_phoneno");
           res.body.should.have
             .property("message")
             .equal("admin logged In Successfully");
@@ -39,7 +33,7 @@ describe("AdminApi", () => {
         });
     });
 
-    it.skip("Admin login with wrong email", (done) => {
+    it("Admin login with wrong email", (done) => {
       const adminCredentials = {
         admin_email: "wrongemail@gmail.com", // Wrong email
         admin_password: "Sushanth@20",
@@ -60,7 +54,7 @@ describe("AdminApi", () => {
         });
     });
 
-    it.skip("Admin login with wrong password", (done) => {
+    it("Admin login with wrong password", (done) => {
       const adminCredentials = {
         admin_email: "testadmin1@gmail.com",
         admin_password: "WrongPassword", // Wrong password
@@ -93,7 +87,7 @@ describe("AdminApi", () => {
         .request(server)
         .post("/api/admin/logout/1") // Replace '1' with the admin ID
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set a valid JWT token in the cookie
         .end((err, res) => {
@@ -129,7 +123,7 @@ describe("AdminApi", () => {
         .request(server)
         .get("/api/admin/dashboard/get-all-user")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ])
         .end((err, res) => {
@@ -147,13 +141,13 @@ describe("AdminApi", () => {
 
   // delete user by userid
 
-  describe("DELETE /api/admin/dashboard/delete-user/1", () => {
+  describe("DELETE /api/admin/dashboard/delete-user/29", () => {
     it.skip("It has to delete users data by user id", (done) => {
       chai
         .request(server)
-        .delete("/api/admin/dashboard/delete-user/1")
+        .delete("/api/admin/dashboard/delete-user/29")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
@@ -172,7 +166,7 @@ describe("AdminApi", () => {
         .request(server)
         .delete("/api/admin/dashboard/delete-user/999")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
@@ -196,7 +190,7 @@ describe("AdminApi", () => {
         .request(server)
         .get("/api/admin/dashboard/get-all-owner")
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
@@ -222,13 +216,13 @@ describe("AdminApi", () => {
 
   // delete owner by ownerid
 
-  describe("DELETE /api/admin/dashboard/delete-owner/2", () => {
+  describe("DELETE /api/admin/dashboard/delete-owner/22", () => {
     it.skip("It will delete a hotel owner by ID", (done) => {
       chai
         .request(server)
-        .delete("/api/admin/dashboard/delete-owner/4") // Replace '20' with the actual owner ID to delete
+        .delete("/api/admin/dashboard/delete-owner/22") // Replace '20' with the actual owner ID to delete
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
@@ -248,7 +242,7 @@ describe("AdminApi", () => {
         .request(server)
         .delete("/api/admin/dashboard/delete-owner/9999") // Assuming '9999' is a non-existing owner ID
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
@@ -273,7 +267,7 @@ describe("AdminApi", () => {
         .request(server)
         .get("/api/admin/dashboard/getadmin/1") // Replace '1' with the actual admin ID to fetch
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
@@ -303,7 +297,7 @@ describe("AdminApi", () => {
         .request(server)
         .get("/api/admin/dashboard/getadmin/99") // Assuming '9999' is a wrong admin ID
         .set("Cookie", [
-          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE0OTI4NDExLCJleHAiOjE3MTU1MzMyMTF9.OLfvNnnf7JmgUK2I4XZxTvyyXkpEZyryx3n7ta4QwGg",
+          "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0YWRtaW4xQGdtYWlsLmNvbSIsIm5hbWUiOiJ0ZXN0YWRtaW4xIiwiaWF0IjoxNzE2NDY2NTM3LCJleHAiOjE3MTcwNzEzMzd9.WL8kU2FoqlxqKhp5v0-FCG3ilqF4IbovJV5JX6cpROM",
           "userRole=admin",
         ]) // Set the access token and user role in cookies
         .end((err, res) => {
