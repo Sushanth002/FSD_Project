@@ -61,7 +61,7 @@ const ViewRoomsManage = () => {
               <p><strong>AC:</strong> {room.ac_non_ac ? 'Available' : 'Not Available'}</p>
               <div className={styles.cardActions}>
                 <button className={styles.button} onClick={() => handleUpdateRoomClick(room.room_id)}>Update Room</button>
-                <button className={styles.button} onClick={() => handleDeleteRoomClick(room.room_id)}>Delete Room</button>
+                <button className={styles.delButton} onClick={() => handleDeleteRoomClick(room.room_id)}>Delete Room</button>
               </div>
             </div>
           ))

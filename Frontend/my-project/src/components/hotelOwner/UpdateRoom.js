@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import hotelOwnerService from '../../services/hotelOwner.service';
 import { useParams } from 'react-router-dom';
 import styles from './UpdateRoom.module.css';

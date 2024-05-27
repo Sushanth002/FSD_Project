@@ -53,10 +53,10 @@ const OwnerHotels = () => {
                 </Link>
 
                 
-                <button className={styles.button} onClick={() => handlePastBookingsClick(hotel.hotel_id)}>Past Bookings</button>
+                <button className={styles.button1} onClick={() => handlePastBookingsClick(hotel.hotel_id)}>Past Bookings</button>
                 
                 
-                <button className={styles.button} onClick={() => handleCurrentBookingsClick(hotel.hotel_id)}>Current Bookings</button>
+                <button className={styles.button2} onClick={() => handleCurrentBookingsClick(hotel.hotel_id)}>Current Bookings</button>
               </div>
             </div>
           ))

@@ -45,13 +45,27 @@
     cursor: pointer;
     margin-right: 10px;
   }
+
+  .delButton{
+    padding: 8px 12px;
+    background-color: #dc1919;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .delButton:hover {
+    background-color: #b30000;
+  }
   
   .button:hover {
     background-color: #0056b3;
   }
   
   .message {
-    color: #d9534f;
+    color: #0d932e;
     font-size: 1em;
     text-align: center;
   }

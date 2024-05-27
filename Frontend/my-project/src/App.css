@@ -28,12 +28,14 @@
 }
 
 .search-form {
+  justify-content: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
 }
 
 .search-form div {
+  
   display: flex;
   flex-direction: column;
   gap: 5px;

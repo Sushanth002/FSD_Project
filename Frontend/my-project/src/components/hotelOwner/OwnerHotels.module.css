@@ -64,6 +64,34 @@
   background-color: #0056b3;
 }
 
+.button1 {
+  padding: 10px 20px;
+  border: none;
+  background-color: #abba0c;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button1:hover {
+  background-color: #7e8908;
+}
+
+.button2 {
+  padding: 10px 20px;
+  border: none;
+  background-color: #29ad55;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button2:hover {
+  background-color: #12823f;
+}
+
 .message {
   color: red;
   font-size: 1.2em;
